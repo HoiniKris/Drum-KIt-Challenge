@@ -1,30 +1,73 @@
 
-var randomNumber1 = Math.floor(Math.random() * 6) + 1; //1-6
+// Detecting Button Press
 
-var randomDiceImage = "dice" + randomNumber1 + ".png"; //dice1.png - dice6.png
+var numebrOfDrumButtons = document.querySelectorAll(".drum").length;
 
-var randomImageSource = "images/" + randomDiceImage; //images/dice1.png - images/dice6.png
+for (var i = 0; i < numebrOfDrumButtons; i++){
 
-var image1 = document.querySelectorAll("img")[0];
+    document.querySelectorAll(".drum")[i].addEventListener("click", function() {
+        var buttonInnerHTML =this.innerHTML;
+        makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
+      
+        //What to do when click detected
 
-image1.setAttribute("src", randomImageSource);
-
-
-var randomNumber2 = Math.floor(Math.random() * 6) + 1;
-
-var randomImageSource2 = "images/dice" + randomNumber2 + ".png";
-
-document.querySelectorAll("img")[1].setAttribute("src", randomImageSource2);
-
-
-//If player 1 wins
-if (randomNumber1 > randomNumber2) {
-  document.querySelector("h1").innerHTML = "🎉 Play 1 Wins!";
+    });
 }
-else if (randomNumber2 > randomNumber1) {
-  document.querySelector("h1").innerHTML = "Player 2 Wins! 🎉";
+
+// Detecing Keyboard Press
+
+document.addEventListener("keydown", function(event) {
+    makeSound(event.key);
+    buttonAnimation(event.key)
+
+});
+
+
+function makeSound(key){
+    switch (key) {
+        case "w":
+            var tom1 = new Audio("sounds/tom-1.mp3");
+            tom1.play();
+            break;
+        case "a":
+            var snare = new Audio("sounds/snare.mp3");
+            snare.play();
+            break;
+        case "s":
+            var tom3 = new Audio("sounds/tom-3.mp3");
+            tom3.play();
+            break;
+        case "d":
+            var crash = new Audio("sounds/crash.mp3");
+            crash.play();
+            break;
+        case "j":
+            var tom4 = new Audio("sounds/tom-4.mp3");
+            tom4.play();
+            break;
+        case "k":
+            var kick= new Audio("sounds/kick-bass.mp3");
+            kick.play();
+            break;
+        case "l":
+            var tom2 = new Audio("sounds/tom-2.mp3");
+            tom2.play();
+            break;
+        
+    
+            default: console.log(buttonInnerHTML)
+        
+    }
 }
-else {
-  document.querySelector("h1").innerHTML = "😊Draw!😊";
+
+
+function buttonAnimation(currentkey){
+ var activeButton =  document.querySelector("." + currentkey);
+ activeButton.classList.add("pressed");
+ setTimeout(function(){
+    activeButton.classList.remove("pressed");
+ }, 100); 
+
+
 }
- 
